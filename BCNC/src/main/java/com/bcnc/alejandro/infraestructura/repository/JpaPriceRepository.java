@@ -1,11 +1,11 @@
-package com.bcnc.alejandro.infraestructura.dataBase.h2.repository;
+package com.bcnc.alejandro.infraestructura.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.bcnc.alejandro.infraestructura.dataBase.h2.entity.PriceEntity;
+import com.bcnc.alejandro.infraestructura.entity.PriceEntity;
 
 public interface JpaPriceRepository extends JpaRepository<PriceEntity, Long> {
 

@@ -1,4 +1,4 @@
-package com.bcnc.alejandro.infraestructura.dataBase.h2.adapter;
+package com.bcnc.alejandro.infraestructura.adapter;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -11,10 +11,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.bcnc.alejandro.domain.model.Price;
 import com.bcnc.alejandro.domain.port.PriceRepositoryPort;
-import com.bcnc.alejandro.infraestructura.dataBase.h2.entity.PriceEntity;
-import com.bcnc.alejandro.infraestructura.dataBase.h2.mapper.PriceMapper;
-import com.bcnc.alejandro.infraestructura.dataBase.h2.repository.JpaPriceRepository;
-
+import com.bcnc.alejandro.infraestructura.entity.PriceEntity;
+import com.bcnc.alejandro.infraestructura.mapper.PriceMapper;
+import com.bcnc.alejandro.infraestructura.repository.JpaPriceRepository;
 
 import lombok.RequiredArgsConstructor;
 

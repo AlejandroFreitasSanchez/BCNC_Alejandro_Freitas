@@ -1,4 +1,4 @@
-package com.bcnc.alejandro.infraestructura.dataBase.h2.mapper;
+package com.bcnc.alejandro.infraestructura.mapper;
 
 import com.bcnc.alejandro.domain.model.Price;
 

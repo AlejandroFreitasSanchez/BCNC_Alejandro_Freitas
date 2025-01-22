@@ -1,4 +1,4 @@
-package com.bcnc.alejandro.infraestructura.dataBase.h2.mapper;
+package com.bcnc.alejandro.infraestructura.mapper;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

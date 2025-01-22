@@ -1,4 +1,4 @@
-package com.bcnc.alejandro.infraestructura.dataBase.h2.rest.controller;
+package com.bcnc.alejandro.infraestructura.rest.controller;
 
 import java.time.LocalDateTime;
 
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bcnc.alejandro.application.useCase.FindPriceUseCase;
 import com.bcnc.alejandro.domain.model.Price;
-import com.bcnc.alejandro.infraestructura.dataBase.h2.mapper.PriceDto;
-import com.bcnc.alejandro.infraestructura.dataBase.h2.mapper.PriceDtoMapper;
+import com.bcnc.alejandro.infraestructura.mapper.PriceDto;
+import com.bcnc.alejandro.infraestructura.mapper.PriceDtoMapper;
 
 import lombok.RequiredArgsConstructor;
 
