@@ -44,7 +44,7 @@ Asegúrate de tener instalado lo siguiente:
     
 2. Compila el proyecto usando Maven:
 
-        Ejecutando el comando "mvn clean install", o bien utilizando el IDE.
+        Ejecutando el comando "mvn clean install", o bien importa el proyecto al IDE, y compila desde allí.
 
 3. Ejecuta la aplicación:
 
