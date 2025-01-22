@@ -39,20 +39,21 @@ Asegúrate de tener instalado lo siguiente:
 
 1. Clona este repositorio:
    
-   git clone https://github.com/usuario/bcnc-prueba-tecnica.git
-   cd bcnc-prueba-tecnica
-   
+        git clone https://github.com/usuario/bcnc-prueba-tecnica.git
+        cd bcnc-prueba-tecnica
+    
 2. Compila el proyecto usando Maven:
 
-     Ejecutando el comando "mvn clean install", o bien utilizando el IDE.
+        Ejecutando el comando "mvn clean install", o bien utilizando el IDE.
 
 3. Ejecuta la aplicación:
 
-    Ejecuta el comando "mvn spring-boot:run", o desde el IDE, como anteriormente.
+        Ejecuta el comando "mvn spring-boot:run", o desde el IDE, como anteriormente.
 
-    La aplicacion se levantara en: **http://localhost:8080**
+        La aplicacion se levantara en: **http://localhost:8080**
 
-    Para ver la base de datos en memoria: **http://localhost:8080/h2-console**
+    Para ver la base de datos en memoria:
+         **http://localhost:8080/h2-console**
 
         -> Los scripts sql estan en la carpeta resources.
 
@@ -61,7 +62,8 @@ Asegúrate de tener instalado lo siguiente:
             -User Name: **BCNC**
             -Password: **BCNC**
             
-    Para acceder a swagger y poder probar la API directamente: **http://localhost:8080/swagger-ui/index.html**
+    Para acceder a swagger y poder probar la API directamente:
+         **http://localhost:8080/swagger-ui/index.html**
 
 --
 
