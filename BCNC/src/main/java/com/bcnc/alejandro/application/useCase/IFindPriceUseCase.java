@@ -7,5 +7,5 @@ import com.bcnc.alejandro.domain.model.Price;
 
 public interface IFindPriceUseCase {
 	
-	Price findPriceByProductIdAndBrandIandApplicationDate(Long productId, Long brandId, LocalDateTime applicationDate);
+	Price findPriceByProductIdBrandIandApplicationDate(Long productId, Long brandId, LocalDateTime applicationDate);
 }

@@ -16,10 +16,10 @@ public class FindPriceUseCase implements IFindPriceUseCase{
 	private final PriceRepositoryPort priceRepositoryPort;
 	
 		@Override
-		public Price findPriceByProductIdAndBrandIandApplicationDate(Long productId,
+		public Price findPriceByProductIdBrandIandApplicationDate(Long productId,
 				Long brandId, LocalDateTime applicationDate) {
-			// TODO Auto-generated method stub
-			return priceRepositoryPort.findPriceByProductIdAndBrandIandApplicationDate(productId, brandId, applicationDate);
+			
+			return priceRepositoryPort.findPriceByProductIdBrandIandApplicationDate(productId, brandId, applicationDate);
 		}
 	
 
