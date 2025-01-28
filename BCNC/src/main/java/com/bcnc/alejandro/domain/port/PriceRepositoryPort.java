@@ -6,5 +6,5 @@ import java.time.LocalDateTime;
 import com.bcnc.alejandro.domain.model.Price;
 
 public interface PriceRepositoryPort {
-	Price findPriceByProductIdBrandIandApplicationDate(Long productId, Long brandId, LocalDateTime applicationDate);
+	Price findPriceByProductIdBrandIdAndApplicationDate(Long productId, Long brandId, LocalDateTime applicationDate);
 }

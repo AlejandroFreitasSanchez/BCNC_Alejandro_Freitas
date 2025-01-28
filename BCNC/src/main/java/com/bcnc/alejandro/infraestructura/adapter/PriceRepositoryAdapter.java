@@ -25,7 +25,7 @@ public class PriceRepositoryAdapter implements PriceRepositoryPort{
 	private final PriceRepository jpaPriceRepository;
 	
 	@Override
-	public Price findPriceByProductIdBrandIandApplicationDate(Long productId, Long brandId,
+	public Price findPriceByProductIdBrandIdAndApplicationDate(Long productId, Long brandId,
 			LocalDateTime applicationDate) {
 	
         Optional<PriceEntity> priceEntitie = jpaPriceRepository.findPriceByProductIdBrandIandApplicationDate(

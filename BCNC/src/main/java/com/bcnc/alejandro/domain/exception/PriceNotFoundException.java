@@ -1,8 +1,10 @@
 package com.bcnc.alejandro.domain.exception;
 
+import com.bcnc.alejandro.domain.utils.ExceptionEnum;
+
 public class PriceNotFoundException extends RuntimeException {
     public PriceNotFoundException(Long productId, Long brandId, String applicationDate) {
-        super(String.format("No se ha encontrado ningúm precio para el productId %d, brandId %d, applicationDate %s indicado.", 
+        super(String.format(ExceptionEnum.PRICE_NOT_FOUND_EXCEPTION.getMessage(), 
                 productId, brandId, applicationDate));
     }
 }

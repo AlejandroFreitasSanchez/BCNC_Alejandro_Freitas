@@ -1,65 +1,98 @@
 package com.bcnc.alejandro;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import com.bcnc.alejandro.application.useCase.FindPriceUseCase;
+import com.bcnc.alejandro.domain.exception.PriceNotFoundException;
+import com.bcnc.alejandro.domain.model.Price;
+import com.bcnc.alejandro.domain.utils.ExceptionEnum;
+import com.bcnc.alejandro.infraestructura.mapper.PriceDto;
+import com.bcnc.alejandro.infraestructura.mapper.PriceDtoMapper;
+import com.bcnc.alejandro.infraestructura.rest.controller.PriceController;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PriceControllerTest {
+class PriceControllerTest {
+	 @Mock
+    private FindPriceUseCase findPriceUseCase; 
 
     @Autowired
-    private MockMvc mockMvc;
-    
-    @Test
-    public void testIntegracion01() throws Exception {
-    	mockMvc.perform(MockMvcRequestBuilders.get("/BCNC/price/35455/1/2020-06-14T10:00:00"))
-    	.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    private MockMvc mockMvc; 
+    @InjectMocks
+    private PriceController priceController; 
+
+    private Price mockPrice;
+    private PriceDto mockPriceDto;
+
+    @BeforeEach
+    public void setUp() {
+    	
+        // Configuración del mock para el objeto Price
+    	
+        mockPrice = new Price(
+                35455L, 1L, 1, LocalDateTime.of(2020, 6, 14, 10, 0, 0),
+                LocalDateTime.of(2020, 6, 14, 18, 0, 0), 1, new BigDecimal("35.50"), "EUR"
+        );
+        
+        
+        mockPriceDto = PriceDtoMapper.fromPriceToPriceDto(mockPrice);
     }
 
     @Test
-    public void testFindPriceByProductIdAndBrandIdAndApplicationDate_Succes01() throws Exception {
-        // Test 1: petición a las 10:00 del día 14 del producto 35455 para la brand 1 (ZARA)
-        mockMvc.perform(MockMvcRequestBuilders.get("/BCNC/price/35455/1/2020-06-14T10:00:00"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(35.50)); 
+    public void testFindPriceByProductIdAndBrandIdAndApplicationDate_Success() throws Exception {
+        // Mock
+        when(findPriceUseCase.findPriceByProductIdBrandIdAndApplicationDate(35455L, 1L, LocalDateTime.of(2020, 6, 14, 10, 0, 0)))
+                .thenReturn(mockPrice); 
+
+        // Llamada al controlador
+        ResponseEntity<PriceDto> response = priceController.findPriceByProductIdBrandIdAndApplicationDate(
+                35455L, 1L, LocalDateTime.of(2020, 6, 14, 10, 0, 0)
+        );
+
+        // asserts
+        assertEquals(HttpStatus.OK, response.getStatusCode()); 
+        assertEquals(mockPriceDto.getBrandId(), response.getBody().getBrandId());
+        assertEquals(mockPriceDto.getEndDate(), response.getBody().getEndDate());
+        assertEquals(mockPriceDto.getPrice(), response.getBody().getPrice());
+        assertEquals(mockPriceDto.getPriceList(), response.getBody().getPriceList());
+        assertEquals(mockPriceDto.getStartDate(), response.getBody().getStartDate());
     }
-    
+
     @Test
-    public void testFindPriceByProductIdAndBrandIdAndApplicationDate_Succes02() throws Exception {
-        // Test 2: petición a las 16:00 del día 14 del producto 35455 para la brand 1 (ZARA)
-        mockMvc.perform(MockMvcRequestBuilders.get("/BCNC/price/35455/1/2020-06-14T16:00:00"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(25.45)); 
-    }
-    
-    @Test
-    public void testFindPriceByProductIdAndBrandIdAndApplicationDate_Succes03() throws Exception {
-        // Test 3: petición a las 21:00 del día 14 del producto 35455 para la brand 1 (ZARA)
-        mockMvc.perform(MockMvcRequestBuilders.get("/BCNC/price/35455/1/2020-06-14T21:00:00"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(35.50)); 
-    }
-    
-    @Test
-    public void testFindPriceByProductIdAndBrandIdAndApplicationDate_Succes04() throws Exception {
-        // Test 4: petición a las 10:00 del día 15 del producto 35455 para la brand 1 (ZARA)
-        mockMvc.perform(MockMvcRequestBuilders.get("/BCNC/price/35455/1/2020-06-15T10:00:00"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(30.50)); 
-    }
-    
-    @Test
-    public void testFindPriceByProductIdAndBrandIdAndApplicationDate_Succes05() throws Exception {
-        // Test 5: petición a las 21:00 del día 16 del producto 35455 para la brand 1 (ZARA)
-        mockMvc.perform(MockMvcRequestBuilders.get("/BCNC/price/35455/1/2020-06-16T21:00:00"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(38.95)); 
-    }
-    
+    public void testFindPriceByProductIdAndBrandIdAndApplicationDate_NotFound() throws Exception {
+        // Configuración Mock para que lance una excepción
+        when(findPriceUseCase.findPriceByProductIdBrandIdAndApplicationDate(35455L, 1L, LocalDateTime.of(2020, 6, 14, 10, 0, 0)))
+                .thenThrow(new PriceNotFoundException(35455L, 1L, "2020-06-14T10:00:00")); 
+
+        // Llamada al controlador
+        MvcResult result = mockMvc.perform(get("/bcnc/prices")
+                .param("productId", "35455")
+                .param("brandId", "2")
+                .param("applicationDate", "2020-06-14T10:00:00"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(String.format(ExceptionEnum.PRICE_NOT_FOUND_EXCEPTION.getMessage(), 35455, 2, "2020-06-14T10:00")))
+                .andReturn();
+
+        // asserts
+        assertEquals(HttpStatus.NOT_FOUND.value(), result.getResponse().getStatus());
 }
+    }

@@ -27,12 +27,12 @@ public class PriceController {
 	private final FindPriceUseCase findPriceUseCase;
 
 	@GetMapping
-	public ResponseEntity<PriceDto> findPriceByProductIBrandIdAndApplicationDate(
+	public ResponseEntity<PriceDto> findPriceByProductIdBrandIdAndApplicationDate(
 			@RequestParam Long productId, 
 			@RequestParam Long brandId, 
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime applicationDate) {
 
-	    Price price = findPriceUseCase.findPriceByProductIdBrandIandApplicationDate(productId, brandId, applicationDate);
+	    Price price = findPriceUseCase.findPriceByProductIdBrandIdAndApplicationDate(productId, brandId, applicationDate);
         PriceDto priceResponseDto = PriceDtoMapper.fromPriceToPriceDto(price);
         return ResponseEntity.ok(priceResponseDto);
     }

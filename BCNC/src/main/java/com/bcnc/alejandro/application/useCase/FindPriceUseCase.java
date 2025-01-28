@@ -17,10 +17,10 @@ public class FindPriceUseCase implements IFindPriceUseCase{
 	private final PriceRepositoryPort priceRepositoryPort;
 	
 		@Override
-		public Price findPriceByProductIdBrandIandApplicationDate(Long productId,
+		public Price findPriceByProductIdBrandIdAndApplicationDate(Long productId,
 				Long brandId, LocalDateTime applicationDate) {
 			
-			Price price =  priceRepositoryPort.findPriceByProductIdBrandIandApplicationDate(productId, brandId, applicationDate);
+			Price price =  priceRepositoryPort.findPriceByProductIdBrandIdAndApplicationDate(productId, brandId, applicationDate);
 			
 			if(price == null) {
 				throw new PriceNotFoundException(productId, brandId, applicationDate.toString());
