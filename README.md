@@ -97,7 +97,7 @@ GET	/prices/{productId}/{brandId}/{applicationDate}	Consulta el precio aplicable
 -Ejemplo de Solicitud:
     Consulta el precio de un producto con una herramienta como postman, con swagger o bien con el siguiente comando:
 
-    curl -X GET "http://localhost:8080/BCNC/price/35455/1/2020-06-14T21:00:00"
+    curl -X GET "http://localhost:8080/bcnc/prices?productId=35455&brandId=1&applicationDate=2020-06-14T21:00:00"
 
     Respuesta Ejemplo
 
@@ -121,6 +121,12 @@ Se utilizan las siguientes herramientas para asegurar calidad en el código:
 
 JUnit 5: Para pruebas unitarias.
 Spring MockMvc: Para pruebas de los endpoints REST.
+
+Para ejecutar Jacoco, la herramienta de coverage, se deberá usar el siguiente comando:
+    mvn clean test jacoco:report o bien, desde el IDE.
+
+Una vez ejecutado generará el siguiente archivo que contendrá la información del coverage: 
+    target/site/jacoco/index.html
 
 --
 
