@@ -122,10 +122,12 @@ Se utilizan las siguientes herramientas para asegurar calidad en el código:
 JUnit 5: Para pruebas unitarias.
 Spring MockMvc: Para pruebas de los endpoints REST.
 
-Para ejecutar Jacoco, la herramienta de coverage, se deberá usar el siguiente comando:
+-Para ejecutar Jacoco, la herramienta de coverage, se deberá usar el siguiente comando:
+
     mvn clean test jacoco:report o bien, desde el IDE.
 
-Una vez ejecutado generará el siguiente archivo que contendrá la información del coverage: 
+-Una vez ejecutado generará el siguiente archivo que contendrá la información del coverage: 
+
     target/site/jacoco/index.html
 
 --
