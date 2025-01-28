@@ -27,7 +27,7 @@ public class PriceController {
 	private final FindPriceUseCase findPriceUseCase;
 
 	@GetMapping
-	public ResponseEntity<PriceDto> findPriceByProductIdAndBrandIdAndApplicationDateBetweenDates(
+	public ResponseEntity<PriceDto> findPriceByProductIBrandIdAndApplicationDate(
 			@RequestParam Long productId, 
 			@RequestParam Long brandId, 
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime applicationDate) {

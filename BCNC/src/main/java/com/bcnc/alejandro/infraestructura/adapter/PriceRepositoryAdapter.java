@@ -14,7 +14,7 @@ import com.bcnc.alejandro.domain.model.Price;
 import com.bcnc.alejandro.domain.port.PriceRepositoryPort;
 import com.bcnc.alejandro.infraestructura.entity.PriceEntity;
 import com.bcnc.alejandro.infraestructura.mapper.PriceMapper;
-import com.bcnc.alejandro.infraestructura.repository.JpaPriceRepository;
+import com.bcnc.alejandro.infraestructura.repository.PriceRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,23 +22,21 @@ import lombok.RequiredArgsConstructor;
 @Component
 public class PriceRepositoryAdapter implements PriceRepositoryPort{
 	
-	private final JpaPriceRepository jpaPriceRepository;
+	private final PriceRepository jpaPriceRepository;
 	
 	@Override
 	public Price findPriceByProductIdBrandIandApplicationDate(Long productId, Long brandId,
 			LocalDateTime applicationDate) {
 	
-        List<PriceEntity> priceEntities = jpaPriceRepository.findByProductIdAndBrandIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
-                productId, brandId, applicationDate, applicationDate);
+        Optional<PriceEntity> priceEntitie = jpaPriceRepository.findPriceByProductIdBrandIandApplicationDate(
+                productId, brandId, applicationDate);
         
-        if(priceEntities.isEmpty()) {
+        if(!priceEntitie.isPresent()) {
 			throw new PriceNotFoundException(productId, brandId, applicationDate.toString());
 		}
         
-        // En caso de haber varios precios, se filtra por el de mayor prioridad
-        Optional<PriceEntity> priceEntity = priceEntities.stream()
-        	    .max(Comparator.comparingInt(PriceEntity::getPriority));
-		return PriceMapper.fromPriceEntityToPrice(priceEntity.orElse(null));
+       
+		return PriceMapper.fromPriceEntityToPrice(priceEntitie.get());
 	}
 
 }
