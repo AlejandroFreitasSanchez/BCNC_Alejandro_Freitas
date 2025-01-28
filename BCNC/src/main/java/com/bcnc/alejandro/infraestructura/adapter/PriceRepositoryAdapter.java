@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.bcnc.alejandro.domain.exception.PriceNotFoundException;
 import com.bcnc.alejandro.domain.model.Price;
 import com.bcnc.alejandro.domain.port.PriceRepositoryPort;
 import com.bcnc.alejandro.infraestructura.entity.PriceEntity;
@@ -30,9 +31,9 @@ public class PriceRepositoryAdapter implements PriceRepositoryPort{
         List<PriceEntity> priceEntities = jpaPriceRepository.findByProductIdAndBrandIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
                 productId, brandId, applicationDate, applicationDate);
         
-        if (priceEntities.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No se ha encontrado ningúm precio para el productId " + productId + ", brandId " + brandId + ", applicationDate " + applicationDate + " indicado.");
-        }
+        if(priceEntities.isEmpty()) {
+			throw new PriceNotFoundException(productId, brandId, applicationDate.toString());
+		}
         
         // En caso de haber varios precios, se filtra por el de mayor prioridad
         Optional<PriceEntity> priceEntity = priceEntities.stream()
