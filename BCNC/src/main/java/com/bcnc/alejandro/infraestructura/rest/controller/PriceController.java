@@ -1,6 +1,8 @@
 package com.bcnc.alejandro.infraestructura.rest.controller;
 
 import java.time.LocalDateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bcnc.alejandro.application.useCase.FindPriceUseCase;
 import com.bcnc.alejandro.domain.exception.PriceNotFoundException;
 import com.bcnc.alejandro.domain.model.Price;
+
 import com.bcnc.alejandro.infraestructura.mapper.PriceDto;
 import com.bcnc.alejandro.infraestructura.mapper.PriceDtoMapper;
 
@@ -24,6 +27,9 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class PriceController {
 
+	private static final Logger logger = LoggerFactory.getLogger(PriceController.class);
+
+	
 	private final FindPriceUseCase findPriceUseCase;
 
 	@GetMapping
@@ -39,6 +45,7 @@ public class PriceController {
 
     @ExceptionHandler(PriceNotFoundException.class)
     public ResponseEntity<String> handlePriceNotFound(PriceNotFoundException ex) {
+    	logger.error(ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 }

@@ -115,8 +115,6 @@ GET	/prices/{productId}/{brandId}/{applicationDate}	Consulta el precio aplicable
 ## Test
 Ejecuta las pruebas unitarias y de integración con el IDE o bien con Maven con el siguiente comando: -> mvn test
 
-
-Cobertura de Pruebas
 Se utilizan las siguientes herramientas para asegurar calidad en el código:
 
 JUnit 5: Para pruebas unitarias.
